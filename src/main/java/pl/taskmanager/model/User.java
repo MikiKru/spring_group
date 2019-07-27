@@ -32,9 +32,15 @@ public class User {
     private String email;
     @NotBlank
     @Size(min = 6)
-    @Pattern(regexp = "[A-Z]{1,}")
+//    @Pattern(regexp = "[A-Z]{1,}")
     private String password;
-
+    // konstruktor do rejestracji użytkownika
+    public User(@NotBlank String name, @NotBlank String lastname, @Email @NotBlank String email, @NotBlank @Size(min = 6) @Pattern(regexp = "[A-Z]{1,}") String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
     // dane generowane automatycznie
     private LocalDateTime registration_datetime = LocalDateTime.now();
     // realacja n:m user to role

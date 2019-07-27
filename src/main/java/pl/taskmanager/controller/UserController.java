@@ -3,8 +3,10 @@ package pl.taskmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.taskmanager.model.User;
+import pl.taskmanager.model.dto.UserDto;
 import pl.taskmanager.service.UserService;
 import java.util.List;
 
@@ -32,7 +34,15 @@ public class UserController {
         return userService.getAllUsers();
     }
     // Obsługa żądania rejestracji użytkownika
-
+    @PostMapping("/register/{name}&{lastname}&{email}&{password}")
+    public User addUser(
+            @PathVariable String name,
+            @PathVariable String lastname,
+            @PathVariable String email,
+            @PathVariable String password
+    ){
+        return userService.addUser(new UserDto(name,lastname,email,password));
+    }
 
 
 
