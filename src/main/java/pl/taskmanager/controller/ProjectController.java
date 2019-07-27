@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.dto.ProjectDto;
@@ -26,5 +27,12 @@ public class ProjectController {
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStop
             ){
         return projectService.createProject(new ProjectDto(acronim, description, dateStart,dateStop));
+    }
+    @PutMapping("/project/update/{project_id}&{dateStop}")
+    public Project changeProjectDeadline(
+            @PathVariable Long project_id,
+            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStop
+    ){
+        return projectService.updateProjectStopDate(project_id,dateStop);
     }
 }
