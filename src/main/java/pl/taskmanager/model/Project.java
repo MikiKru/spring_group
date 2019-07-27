@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,17 @@ public class Project {
     @NotBlank
     @Column(columnDefinition = "text")
     private String description;
-    @NotBlank
+    @NotNull
     private LocalDate dateStart;
-    @NotBlank
+    @NotNull
     private LocalDate dateStop;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private List<Task> tasks = new ArrayList<>();
+
+    public Project(@NotBlank String acronim, @NotBlank String description, @NotBlank LocalDate dateStart, @NotBlank LocalDate dateStop) {
+        this.acronim = acronim;
+        this.description = description;
+        this.dateStart = dateStart;
+        this.dateStop = dateStop;
+    }
 }
