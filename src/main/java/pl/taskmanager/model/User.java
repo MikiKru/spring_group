@@ -1,5 +1,9 @@
 package pl.taskmanager.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +15,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
+@Data                   // gettery i settery
+@AllArgsConstructor     // konstruktor z wsztystkimi agrumentami
+@NoArgsConstructor      // konstruktor domyślny
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
