@@ -43,7 +43,13 @@ public class UserController {
     ){
         return userService.addUser(new UserDto(name,lastname,email,password));
     }
-
+    @GetMapping("/login_user/{email}&{password}")
+    public String login(
+            @PathVariable String email,
+            @PathVariable String password
+    ){
+        return userService.loginUser(email,password);
+    }
 
 
 }

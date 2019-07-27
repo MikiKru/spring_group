@@ -1,5 +1,6 @@
 package pl.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,8 +51,12 @@ public class User {
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
-
+    // metoda do dodawania roli
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
 
 
 
