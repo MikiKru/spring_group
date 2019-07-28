@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.taskmanager.model.Project;
+import pl.taskmanager.model.Task;
 import pl.taskmanager.model.dto.ProjectDto;
+import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.service.ProjectService;
 
 import java.time.LocalDate;
@@ -34,5 +36,15 @@ public class ProjectController {
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStop
     ){
         return projectService.updateProjectStopDate(project_id,dateStop);
+    }
+    @PostMapping("/task/create/{title}&{message}&{dateStart}&{interval}&{project_id}")
+    public Task addTaskToProject(
+            @PathVariable String title,
+            @PathVariable String message,
+            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
+            @PathVariable Integer interval,
+            @PathVariable Long project_id){
+        return projectService.createTask(new TaskDto(
+                title,message,dateStart,interval),project_id);
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,9 +25,8 @@ public class Task {
     @NotBlank
     @Column(columnDefinition = "text")
     private String message;
-    @NotBlank
+
     private LocalDate dateStart = LocalDate.now();
-    @NotBlank
     @Column(name = "task_interval")
     private Integer interval;
     @ManyToMany
@@ -41,4 +41,11 @@ public class Task {
     // pole o nazwie jak w mappedBy
     private Project project;
 
+    public Task(@NotBlank String title, @NotBlank String message, @NotBlank LocalDate dateStart, @NotBlank Integer interval, Project project) {
+        this.title = title;
+        this.message = message;
+        this.dateStart = dateStart;
+        this.interval = interval;
+        this.project = project;
+    }
 }

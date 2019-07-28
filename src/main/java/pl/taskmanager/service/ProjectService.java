@@ -3,7 +3,9 @@ package pl.taskmanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.taskmanager.model.Project;
+import pl.taskmanager.model.Task;
 import pl.taskmanager.model.dto.ProjectDto;
+import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.repository.ProjectRepository;
 import pl.taskmanager.repository.TaskRepository;
 
@@ -41,5 +43,16 @@ public class ProjectService {
         }
         return new Project();
     }
-
+    // dodaj nowego taska do projektu
+    public Task createTask(TaskDto taskDto, Long project_id){
+        // obiekt taska z przypisaniem do projektu
+        Task task = new Task(
+                taskDto.getTitle(),
+                taskDto.getMessage(),
+                taskDto.getDateStart(),
+                taskDto.getInterval(),
+                projectRepository.getOne(project_id));
+        return taskRepository.save(task);
+    }
+    // usuń taska z projektu
 }
