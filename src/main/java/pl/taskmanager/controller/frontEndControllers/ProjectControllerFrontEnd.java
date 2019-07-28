@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.taskmanager.model.Project;
+import pl.taskmanager.model.Task;
+import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.service.ProjectService;
+
+import javax.validation.Valid;
 import java.util.List;
 @Controller
 public class ProjectControllerFrontEnd {
@@ -37,7 +40,30 @@ public class ProjectControllerFrontEnd {
     public String showProjectDetails(@PathVariable Long project_id, Model model) {
         Project project = projectService.getProjectById(project_id);
         model.addAttribute("project",project);
+        model.addAttribute("taskDto",new TaskDto());
         return "project";
+    }
+    @PostMapping("/addTask&{project_id}")
+    public String addTaskToProject(
+            @ModelAttribute("taskDto") @Valid TaskDto taskDto,
+            BindingResult bindingResult,
+            @PathVariable Long project_id,
+            Model model){
+        if(bindingResult.hasErrors()){
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            Project project = projectService.getProjectById(project_id);
+            model.addAttribute("project",project);
+            model.addAttribute("taskDto",new TaskDto());
+            return "project";
+        }
+        // dodaj taska do DB
+        projectService.createTask(taskDto,project_id);
+        return "redirect:/project&"+project_id;
+    }
+    @GetMapping("task&delete&{task_id}")
+    public String deleteTask(@PathVariable Long task_id){
+        Task task = projectService.removeTask(task_id);
+        return "redirect:/project&"+ task.getProject().getProject_id();
     }
 
 

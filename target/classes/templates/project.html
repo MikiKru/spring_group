@@ -470,7 +470,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div th:text="'Message ' + ${task.message} \n 'Date start '" class="card-body">
+                            <div th:text="'Message: ' + ${task.message}"  class="card-body">
                                 message
                             </div>
                         </div>
@@ -478,7 +478,36 @@
                     </div>
                 </div>
                 <!-- /.container-fluid -->
+                <hr>
+                <h1 align="center">Add new Task</h1>
 
+                <!--<form  th:action="@{'/addTask&'+${project.project_id}}" th:method="post" th:object="${taskDto}">-->
+                            <!--<input th:field="*{title}" type="text">-->
+                            <!--<p th:errors="*{title}">title</p>-->
+                            <!--<input th:field="*{interval} "type="number" >-->
+                            <!--<p th:errors="*{interval}">interval</p>-->
+                            <!--<textarea th:field="*{message}" ></textarea>-->
+                            <!--<p th:errors="*{message}">message</p>-->
+                            <!--<input th:type="submit" th:value="ADD">-->
+                <!--</form>-->
+                <form  th:action="@{'/addTask&'+${project.project_id}}" th:method="post" th:object="${taskDto}" class="user">
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input th:field="*{title}" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Title">
+                            <p th:errors="*{title}">title</p>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input th:field="*{interval} "type="number" class="form-control form-control-user" placeholder="days interval">
+                            <span th:errors="*{interval}">interval</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            <textarea th:field="*{message}" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Message">
+                            </textarea>
+                            <span th:errors="*{message}">message</span>
+                    </div>
+                    <input th:type="submit" th:value="ADD" class="btn btn-primary btn-user btn-block">
+                </form>
             </div>
             <!-- End of Main Content -->
 
