@@ -3,10 +3,7 @@ package pl.taskmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.dto.ProjectDto;
@@ -46,5 +43,10 @@ public class ProjectController {
             @PathVariable Long project_id){
         return projectService.createTask(new TaskDto(
                 title,message,dateStart,interval),project_id);
+    }
+    @DeleteMapping("task/delete/{task_id}")
+    public String deleteTaskById(
+            @PathVariable Long task_id){
+        return "Usunięto: " + projectService.removeTask(task_id);
     }
 }

@@ -36,7 +36,9 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name= "employee_id")
     )
     List<User> users = new ArrayList<>();
-    @ManyToOne()
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "project_id")
     // pole o nazwie jak w mappedBy
     private Project project;

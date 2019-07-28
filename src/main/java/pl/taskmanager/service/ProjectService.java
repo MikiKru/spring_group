@@ -55,4 +55,12 @@ public class ProjectService {
         return taskRepository.save(task);
     }
     // usuń taska z projektu
+    public Task removeTask(Long task_id){
+        // wyszukaj task po id
+        Task deletedTask = taskRepository.getOne(task_id);
+        // usuwam obiekt
+        taskRepository.delete(deletedTask);
+        // zwracam usunięty obiekt
+        return deletedTask;
+    }
 }

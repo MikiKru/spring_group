@@ -32,7 +32,10 @@ public class Project {
     @NotNull
     private LocalDate dateStop;
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            mappedBy = "project")
     private List<Task> tasks = new ArrayList<>();
 
     public Project(@NotBlank String acronim, @NotBlank String description, @NotBlank LocalDate dateStart, @NotBlank LocalDate dateStop) {
