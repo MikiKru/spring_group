@@ -12,6 +12,7 @@ import pl.taskmanager.service.ProjectService;
 
 import java.time.LocalDate;
 
+@RequestMapping("/rest")
 @RestController
 public class ProjectController {
     private ProjectService projectService;

@@ -8,7 +8,7 @@ import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.repository.ProjectRepository;
 import pl.taskmanager.repository.TaskRepository;
-
+import java.util.List;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -68,5 +68,13 @@ public class ProjectService {
         Project deletedProject = projectRepository.getOne(project_id);
         projectRepository.delete(deletedProject);
         return deletedProject;
+    }
+    // metoda zwracająca wszystkie projekty
+    public List<Project> getAllProjects(){
+        return projectRepository.findAll();
+    }
+    // metoda zwaracjąca liczbę wszystkich tasków
+    public Long countTasks(){
+        return taskRepository.count();
     }
 }
