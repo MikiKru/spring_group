@@ -77,4 +77,8 @@ public class ProjectService {
     public Long countTasks(){
         return taskRepository.count();
     }
+    // metoda zwracająca projekt po id
+    public Project getProjectById(Long project_id){
+        return projectRepository.getOne(project_id);
+    }
 }
