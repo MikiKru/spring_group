@@ -1,5 +1,6 @@
 package pl.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,6 @@ public class Task {
     @NotBlank
     @Column(columnDefinition = "text")
     private String message;
-
     private LocalDate dateStart = LocalDate.now();
     @Column(name = "task_interval")
     private Integer interval;
@@ -35,6 +35,7 @@ public class Task {
             joinColumns = @JoinColumn(name= "task_id"),
             inverseJoinColumns = @JoinColumn(name= "employee_id")
     )
+    @JsonIgnore
     List<User> users = new ArrayList<>();
     @ManyToOne(
             fetch = FetchType.LAZY,

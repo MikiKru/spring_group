@@ -15,8 +15,6 @@ public class TaskDto {
     @Column(columnDefinition = "text")
     private String message;
     @NotBlank
-    private LocalDate dateStart = LocalDate.now();
-    @NotBlank
     @Column(name = "task_interval")
     private Integer interval;
 }

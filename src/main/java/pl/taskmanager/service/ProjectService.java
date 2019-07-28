@@ -49,7 +49,7 @@ public class ProjectService {
         Task task = new Task(
                 taskDto.getTitle(),
                 taskDto.getMessage(),
-                taskDto.getDateStart(),
+                LocalDate.now(),
                 taskDto.getInterval(),
                 projectRepository.getOne(project_id));
         return taskRepository.save(task);
@@ -62,5 +62,11 @@ public class ProjectService {
         taskRepository.delete(deletedTask);
         // zwracam usunięty obiekt
         return deletedTask;
+    }
+    // usunięcie projektu wraz z jego taskami
+    public Project removeProjectRecursively(Long project_id){
+        Project deletedProject = projectRepository.getOne(project_id);
+        projectRepository.delete(deletedProject);
+        return deletedProject;
     }
 }

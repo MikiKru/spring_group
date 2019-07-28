@@ -38,15 +38,19 @@ public class ProjectController {
     public Task addTaskToProject(
             @PathVariable String title,
             @PathVariable String message,
-            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
             @PathVariable Integer interval,
             @PathVariable Long project_id){
         return projectService.createTask(new TaskDto(
-                title,message,dateStart,interval),project_id);
+                title,message,interval),project_id);
     }
-    @DeleteMapping("task/delete/{task_id}")
+    @DeleteMapping("/task/delete/{task_id}")
     public String deleteTaskById(
             @PathVariable Long task_id){
         return "Usunięto: " + projectService.removeTask(task_id);
+    }
+    @DeleteMapping("/project/delete/{project_id}")
+    public String deleteProjectById(
+            @PathVariable Long project_id){
+        return "Usunięto " + projectService.removeProjectRecursively(project_id);
     }
 }
