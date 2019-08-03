@@ -40,8 +40,7 @@ public class ProjectControllerFrontEnd {
     public String addProject(
                @ModelAttribute @Valid ProjectDto projectDto,
                BindingResult bindingResult,
-               Model model,
-               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate localDate
+               Model model
     ){
         // jeżeli występują błędy w formularzu
         if(bindingResult.hasErrors()) {
@@ -52,6 +51,8 @@ public class ProjectControllerFrontEnd {
             return "projects";
         }
         // gdy jest wszystko ok -> zapisujemy projekt do DB
+        System.out.println(projectDto.getDateStart());
+        System.out.println(projectDto.getDateStop());
             projectService.createProject(projectDto);
             return "redirect:/projects";
         }
