@@ -27,9 +27,9 @@ public class Project {
     @NotBlank
     @Column(columnDefinition = "text")
     private String description;
-    @NotNull
+//    @NotNull
     private LocalDate dateStart;
-    @NotNull
+//    @NotNull
     private LocalDate dateStop;
     @JsonIgnore
     @OneToMany(
