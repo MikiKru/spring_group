@@ -42,17 +42,27 @@ public class ProjectControllerFrontEnd {
                BindingResult bindingResult,
                Model model
     ){
+        List<Project> projectsList = projectService.getAllProjects();
+        Long taskNo = projectService.countTasks();
+        model.addAttribute("projectsList", projectsList);
+        model.addAttribute("taskNo", taskNo);
         // jeżeli występują błędy w formularzu
         if(bindingResult.hasErrors()) {
-            List<Project> projectsList = projectService.getAllProjects();
-            Long taskNo = projectService.countTasks();
-            model.addAttribute("projectsList", projectsList);
-            model.addAttribute("taskNo", taskNo);
+            return "projects";
+        }
+        // czy dateStart jest > now()
+        if(projectDto.getDateStart().isBefore(LocalDate.now())){
+            System.out.println("BŁĄD: Data rozpoczęcia przed datą aktualną");
+            model.addAttribute("dateStartValid","date start is before now");
+            return "projects";
+        }
+        // czy dateStart < dateStop
+        if(projectDto.getDateStart().isAfter(projectDto.getDateStop())){
+            System.out.println("BŁĄD: Data rozpoczęcia za datą zakończenia");
+            model.addAttribute("dateStopValid","date stop is before date start");
             return "projects";
         }
         // gdy jest wszystko ok -> zapisujemy projekt do DB
-        System.out.println(projectDto.getDateStart());
-        System.out.println(projectDto.getDateStop());
             projectService.createProject(projectDto);
             return "redirect:/projects";
         }

@@ -492,10 +492,12 @@
                             <div class="col-sm-6">
                                 <input th:field="*{dateStart}" type="date" class="form-control form-control-user">
                                 <span th:errors="*{dateStart}"></span>
+                                <span th:text="${dateStartValid}"></span>
                             </div>
                             <div class="col-sm-6">
                                 <input th:field="*{dateStop}" type="date" class="form-control form-control-user">
                                 <span th:errors="*{dateStop}"></span>
+                                <span th:text="${dateStopValid}"></span>
                             </div>
                         </div>
                         <div class="form-group">

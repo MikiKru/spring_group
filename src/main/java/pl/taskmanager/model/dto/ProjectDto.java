@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
 public class ProjectDto {
     @NotBlank
     private String acronim;
@@ -22,13 +23,6 @@ public class ProjectDto {
 //    @NotBlank
 @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateStop;
-
-    public ProjectDto(@NotBlank String acronim, @NotBlank String description, LocalDate dateStart, LocalDate dateStop) {
-        this.acronim = acronim;
-        this.description = description;
-        this.dateStart = LocalDate.now();
-        this.dateStop = LocalDate.now();
-    }
 
     public ProjectDto() {
         this.dateStart = LocalDate.now();
