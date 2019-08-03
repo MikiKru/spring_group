@@ -29,6 +29,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 // wstrzyknięcie podstawowego formularza logowania
                 .and()
+                    .csrf().disable()
                     .formLogin()
                         // adres formularza logowania
                         .loginPage("/login")
@@ -39,7 +40,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         // th:action
                         .loginProcessingUrl("/login-process")
                         // przekierowanie po zalogowaniu
-                        .defaultSuccessUrl("/projects");
+                        .defaultSuccessUrl("/projects")
+                .and()
+                    .logout()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/");
     }
     @Autowired
     DataSource dataSource;
@@ -58,7 +63,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                                 "JOIN role r ON r.role_id = er.role_id " +
                                 "WHERE e.email = ?")
                 .dataSource(dataSource)
-                // szyfrowanie hasła
                 .passwordEncoder(passwordEncoder);
     }
 }
