@@ -50,7 +50,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 // zapytanie zwaracjące logowanego użytkownika
                 .usersByUsernameQuery(
-                        "SELECT e.email, e.password, e.isActivated FROM employee e WHERE e.email = ?")
+                        "SELECT e.email, e.password, e.is_activated FROM employee e WHERE e.email = ?")
                 // zapytanie zwracające rolę logowanego użytkownika
                 .authoritiesByUsernameQuery(
                         "SELECT e.email, r.role_name FROM employee e " +

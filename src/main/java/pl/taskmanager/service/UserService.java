@@ -1,6 +1,7 @@
 package pl.taskmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.UserDto;
@@ -22,10 +23,18 @@ public class UserService {
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // rejestracja użytkownika
     public User addUser(UserDto user){
         // utwórz obiekt User
-        User registered_user = new User(user.getName(), user.getLastname(), user.getEmail(), user.getPassword());
+        User registered_user = new User(
+                user.getName(),
+                user.getLastname(),
+                user.getEmail(),
+                passwordEncoder.encode(user.getPassword())); // zwraca hash hasła
         registered_user.addRole(roleRepository.getOne(1L));
         return userRepository.save(registered_user);
     }
