@@ -44,6 +44,7 @@ public class User {
     }
     // dane generowane automatycznie
     private LocalDateTime registration_datetime = LocalDateTime.now();
+    private Boolean isActivated = true;
     // realacja n:m user to role
     @ManyToMany
     @JoinTable(     // adnotacja złączająca tabele na posdstawie id
