@@ -24,4 +24,12 @@ public class UserDto {
     @Size(min = 6)
 //    @Pattern(regexp = "[A-Z]{1,}")
     private String password;
+    private String password_repeat;
+
+    public UserDto(@NotBlank String name, @NotBlank String lastname, @Email @NotBlank String email, @NotBlank @Size(min = 6) String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
 }

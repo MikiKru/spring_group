@@ -55,11 +55,12 @@
                     <span th:errors="*{password}"></span>
                   </div>
                   <div class="col-sm-6">
-                    <input th:name="password_repeat" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                    <input th:field="*{password_repeat}" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                     <span th:text="${password_error}"></span>
                   </div>
                 </div>
                 <input type="submit" th:value="'register account'" class="btn btn-primary btn-user btn-block">
+
                 <hr>
                 <a href="index.html" class="btn btn-google btn-user btn-block">
                   <i class="fab fa-google fa-fw"></i> Register with Google
