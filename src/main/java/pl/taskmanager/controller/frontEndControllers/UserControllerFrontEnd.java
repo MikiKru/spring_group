@@ -29,13 +29,23 @@ public class UserControllerFrontEnd {
     @PostMapping("/register")
     public String register(
             @ModelAttribute @Valid UserDto userDto,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            @ModelAttribute String password_repeat,
+            Model model
     ){
         // błędy formularza
         if (bindingResult.hasErrors()){
             return "register";
         }
+        // porwnanie haseł
+//        if (!userDto.getPassword().equals(password_repeat)){
+//            System.out.println(userDto.getPassword());
+//            System.out.println(password_repeat);
+//            model.addAttribute("password_error", "different passwords!");
+//            return "register";
+//        }
         // rejestracja
+        userService.addUser(userDto);
         return "redirect:/projects";
     }
 

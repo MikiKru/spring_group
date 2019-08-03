@@ -22,6 +22,6 @@ public class UserDto {
     private String email;
     @NotBlank
     @Size(min = 6)
-    @Pattern(regexp = "[A-Z]{1,}")
+//    @Pattern(regexp = "[A-Z]{1,}")
     private String password;
 }

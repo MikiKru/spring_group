@@ -55,7 +55,7 @@
                     <span th:errors="*{password}"></span>
                   </div>
                   <div class="col-sm-6">
-                    <input th:value="${password_repeat}" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                    <input th:name="password_repeat" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                     <span th:text="${password_error}"></span>
                   </div>
                 </div>
