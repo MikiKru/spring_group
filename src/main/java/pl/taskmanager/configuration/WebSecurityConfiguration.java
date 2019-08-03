@@ -10,8 +10,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // adresy wymagające logowania
-                .antMatchers("/projects")
-                .hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/projects").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/project**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/addProject").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/projects&delete**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/addTask**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/addTask**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/task&delete**").hasAnyAuthority("ROLE_ADMIN")
                 // pozostałe nie wymagają logowania
                 .anyRequest().permitAll()
                 // wstrzyknięcie podstawowego formularza logowania
@@ -21,4 +26,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .httpBasic();
 
     }
+
 }
