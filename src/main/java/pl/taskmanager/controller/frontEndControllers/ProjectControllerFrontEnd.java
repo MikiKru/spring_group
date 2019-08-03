@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
+import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.service.ProjectService;
 
@@ -30,6 +31,7 @@ public class ProjectControllerFrontEnd {
         Long taskNo = projectService.countTasks();
         model.addAttribute("projectsList",projectsList);
         model.addAttribute("taskNo",taskNo);
+        model.addAttribute("projectDto", new ProjectDto());
         return "projects";
     }
     @GetMapping("/projects&delete&{project_id}")
