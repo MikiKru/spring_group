@@ -2,6 +2,7 @@ package pl.taskmanager.controller.frontEndControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
+import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
+import pl.taskmanager.service.LoginService;
 import pl.taskmanager.service.ProjectService;
+import pl.taskmanager.service.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -22,18 +26,24 @@ import java.util.List;
 public class ProjectControllerFrontEnd {
 
     private ProjectService projectService;
+    private LoginService loginService;
+    private UserService userService;
     @Autowired
-    public ProjectControllerFrontEnd(ProjectService projectService) {
+    public ProjectControllerFrontEnd(ProjectService projectService, LoginService loginService, UserService userService) {
         this.projectService = projectService;
+        this.loginService = loginService;
+        this.userService = userService;
     }
 
     @GetMapping("/projects")
-    public String projects(Model model){
+    public String projects(Model model, Authentication auth){
         List<Project> projectsList = projectService.getAllProjects();
         Long taskNo = projectService.countTasks();
         model.addAttribute("projectsList",projectsList);
         model.addAttribute("taskNo",taskNo);
         model.addAttribute("projectDto", new ProjectDto());
+        model.addAttribute("logged_email", loginService.getLoginFromCredentials(auth));
+        model.addAttribute("isAdmin", loginService.isAdmin(auth));
         return "projects";
     }
     @PostMapping("/addProject")

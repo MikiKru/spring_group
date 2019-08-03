@@ -3,6 +3,7 @@ package pl.taskmanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.taskmanager.model.Role;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.UserDto;
 import pl.taskmanager.repository.RoleRepository;
@@ -45,6 +46,10 @@ public class UserService {
             return "błąd logowania";
         }
         return "zarejestrowano: " + user.toString();
+    }
+    // metoda zwracająca obiekt roli po id roli
+    public Role getRoleById(Long id){
+        return roleRepository.getOne(id);
     }
 
 }
