@@ -1,11 +1,13 @@
 package pl.taskmanager.controller.frontEndControllers;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.dto.TaskDto;
@@ -45,15 +47,14 @@ public class ProjectControllerFrontEnd {
     }
     @PostMapping("/addTask&{project_id}")
     public String addTaskToProject(
-            @ModelAttribute("taskDto") @Valid TaskDto taskDto,
+            @ModelAttribute @Valid TaskDto taskDto,
             BindingResult bindingResult,
             @PathVariable Long project_id,
             Model model){
         if(bindingResult.hasErrors()){
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             Project project = projectService.getProjectById(project_id);
             model.addAttribute("project",project);
-            model.addAttribute("taskDto",new TaskDto());
+//            model.addAttribute("taskDto",new TaskDto());
             return "project";
         }
         // dodaj taska do DB
