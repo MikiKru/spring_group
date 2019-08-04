@@ -81,4 +81,7 @@ public class ProjectService {
     public Project getProjectById(Long project_id){
         return projectRepository.getOne(project_id);
     }
+    public Task getTaskById(Long task_id){
+        return taskRepository.getOne(task_id);
+    }
 }

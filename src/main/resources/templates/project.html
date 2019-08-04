@@ -467,7 +467,7 @@
                         <!-- Tasks -->
                         <div th:each="task : ${project.tasks}" class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 th:text="${task.title}" class="m-0 font-weight-bold text-primary"></h6>
+                                <a th:href="@{'/task&' + ${task.task_id}}" th:text="${task.title}" class="m-0 font-weight-bold text-primary"></a>
                                 <div align="right">
                                     <a th:href="@{'/task&delete&' + ${task.task_id}}" class="btn btn-danger btn-circle">
                                         <i class="fas fa-trash"></i>

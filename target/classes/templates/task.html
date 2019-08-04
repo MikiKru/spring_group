@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Cards</title>
+    <title>Task</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -461,22 +461,12 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 th:if="${project.tasks.isEmpty()}" class="h3 mb-0 text-gray-800">No tasks</h1>
-                        </div>
                         <!-- Tasks -->
-                        <div th:each="task : ${project.tasks}" class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <a th:href="@{'/task&' + ${task.task_id}}" th:text="${task.title}" class="m-0 font-weight-bold text-primary"></a>
-                                <div align="right">
-                                    <a th:href="@{'/task&delete&' + ${task.task_id}}" class="btn btn-danger btn-circle">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div th:text="'Description: ' + ${task.message}" class="card-body"></div>
-                            <div th:text="'Task started: ' + ${task.dateStart}" class="card-body"></div>
-                            <div th:text="'Deadline: ' + ${task.dateStart.plusDays(task.interval)}" class="card-body"></div>
+                        <div class="card shadow mb-4">
+                            <h2 th:text="'Task title: ' + ${task.title}" class="card-body"></h2>
+                            <p th:text="'Description: ' + ${task.message}" class="card-body"></p>
+                            <p th:text="'Task started: ' + ${task.dateStart}" class="card-body"></p>
+                            <p th:text="'Deadline: ' + ${task.dateStart.plusDays(task.interval)}" class="card-body"></p>
                         </div>
                     </div>
                 </div>

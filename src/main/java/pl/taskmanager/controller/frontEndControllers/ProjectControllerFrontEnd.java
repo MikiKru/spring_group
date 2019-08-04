@@ -112,6 +112,12 @@ public class ProjectControllerFrontEnd {
         Task task = projectService.removeTask(task_id);
         return "redirect:/project&"+ task.getProject().getProject_id();
     }
-
+    // metoda odwołująca się do widoku wybranego zadania
+    @GetMapping("/task&{task_id}")
+    public String selectedTask(@PathVariable Long task_id, Model model){
+        // wydobycie z bazy danych szukanego taska
+        model.addAttribute("task", projectService.getTaskById(task_id));
+        return "task";
+    }
 
 }
