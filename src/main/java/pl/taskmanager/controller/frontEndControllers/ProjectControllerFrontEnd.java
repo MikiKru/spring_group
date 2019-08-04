@@ -15,6 +15,7 @@ import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
+import pl.taskmanager.model.enums.TaskStatus;
 import pl.taskmanager.service.LoginService;
 import pl.taskmanager.service.ProjectService;
 import pl.taskmanager.service.UserService;
@@ -123,6 +124,8 @@ public class ProjectControllerFrontEnd {
         allUsers.removeAll(task.getUsers());
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("addedUser", new User());
+        // przekazanie tablicy z statusami
+        model.addAttribute("statuses", TaskStatus.values());
         return "task";
     }
 
