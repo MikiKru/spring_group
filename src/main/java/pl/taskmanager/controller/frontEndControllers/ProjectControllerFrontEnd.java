@@ -119,14 +119,17 @@ public class ProjectControllerFrontEnd {
         model.addAttribute("task", projectService.getTaskById(task_id));
         // przekazanie do wydoku listy użytkowników do przypisanie do tasków
         model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("addedUser", new User());
         return "task";
     }
 
     @PostMapping("/addUserToTask&{task_id}")
     public String addUserToTask(
             @PathVariable Long task_id,
-            @ModelAttribute Task task
+            @ModelAttribute Task task,
+            @ModelAttribute User user
     ){
+        System.out.println("Added user: " + user);
         // dodanie wybranego usera do listy tasków
         return "redirect:/task&"+task_id;
     }
