@@ -371,8 +371,8 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number of
                                             tasks
                                         </div>
-                                        <div th:text="${project.tasks.size()}"
-                                             class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                        <!--<div th:text="${project.tasks.size()}"-->
+                                             <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -391,8 +391,8 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Number of
                                             tasks
                                         </div>
-                                        <div th:text="${numberOfTasks}"
-                                             class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                        <!--<div th:text="${numberOfTasks}"-->
+                                             <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -453,9 +453,7 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <p>
-                    <h1 class="h3 mb-0 text-gray-800">Project </h1>
-                    <h1 th:text="${project.getAcronim()}" class="h3 mb-0 text-gray-800"></h1>
-                    <h1 class="h3 mb-0 text-gray-800"> details:</h1>
+                    <h1 th:text="${'task: ' + task.title}" class="h3 mb-0 text-gray-800"></h1>
                     </p>
                 </div>
 
@@ -463,39 +461,38 @@
                     <div class="col-lg-12">
                         <!-- Tasks -->
                         <div class="card shadow mb-4">
-                            <h2 th:text="'Task title: ' + ${task.title}" class="card-body"></h2>
-                            <p th:text="'Description: ' + ${task.message}" class="card-body"></p>
-                            <p th:text="'Task started: ' + ${task.dateStart}" class="card-body"></p>
-                            <p th:text="'Deadline: ' + ${task.dateStart.plusDays(task.interval)}" class="card-body"></p>
+                            <span th:text="'description: ' + ${task.message}" class="card-body"></span>
+                            <span th:text="'task started: ' + ${task.dateStart}" class="card-body"></span>
+                            <span th:text="'deadline: ' + ${task.dateStart.plusDays(task.interval)}" class="card-body"></span>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.container-fluid -->
-            <div align="center" class="col-lg-12" >
-                <h1>Add new task</h1>
-                <form th:action="@{'/addTask&' + ${project.project_id}}" th:method="post" th:object="${taskDto}" class="user">
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input th:field="*{title}" type="text" class="form-control form-control-user" id="title"
-                                   placeholder="Title">
-                            <p th:errors="*{title}">wrong</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <input th:field="*{interval}" type="number" class="form-control form-control-user" id="interval">
-                            <!--placeholder="Days interval"-->
-                            <span th:errors="*{interval}"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input th:field="*{message}" type="text" class="form-control form-control-user" id="message"
-                               placeholder="Message">
-                        <span th:errors="*{message}"></span>
-                    </div>
-                    <input th:type="submit" th:value="'Create new task'" class="btn btn-primary btn-user btn-block">
+            <!--<div align="center" class="col-lg-12" >-->
+                <!--<h1>Add new task</h1>-->
+                <!--<form th:action="@{'/addTask&' + ${project.project_id}}" th:method="post" th:object="${taskDto}" class="user">-->
+                    <!--<div class="form-group row">-->
+                        <!--<div class="col-sm-6 mb-3 mb-sm-0">-->
+                            <!--<input th:field="*{title}" type="text" class="form-control form-control-user" id="title"-->
+                                   <!--placeholder="Title">-->
+                            <!--<p th:errors="*{title}">wrong</p>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input th:field="*{interval}" type="number" class="form-control form-control-user" id="interval">-->
+                            <!--&lt;!&ndash;placeholder="Days interval"&ndash;&gt;-->
+                            <!--<span th:errors="*{interval}"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input th:field="*{message}" type="text" class="form-control form-control-user" id="message"-->
+                               <!--placeholder="Message">-->
+                        <!--<span th:errors="*{message}"></span>-->
+                    <!--</div>-->
+                    <!--<input th:type="submit" th:value="'Create new task'" class="btn btn-primary btn-user btn-block">-->
 
-                </form>
-            </div>
+                <!--</form>-->
+            <!--</div>-->
         </div>
         <!-- End of Main Content -->
 
