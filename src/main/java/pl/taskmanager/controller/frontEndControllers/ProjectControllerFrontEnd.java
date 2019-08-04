@@ -116,9 +116,12 @@ public class ProjectControllerFrontEnd {
     @GetMapping("/task&{task_id}")
     public String selectedTask(@PathVariable Long task_id, Model model){
         // wydobycie z bazy danych szukanego taska
-        model.addAttribute("task", projectService.getTaskById(task_id));
+        Task task = projectService.getTaskById(task_id);
+        model.addAttribute("task", task);
         // przekazanie do wydoku listy użytkowników do przypisanie do tasków
-        model.addAttribute("allUsers", userService.getAllUsers());
+        List<User> allUsers = userService.getAllUsers();
+        allUsers.removeAll(task.getUsers());
+        model.addAttribute("allUsers", allUsers);
         model.addAttribute("addedUser", new User());
         return "task";
     }
