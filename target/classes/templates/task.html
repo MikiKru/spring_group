@@ -475,13 +475,13 @@
                                 <h1 th:text="'Add participant to project'" class="h3 mb-0 text-gray-800"></h1>
                                 </p>
                             </div>
-                            <form th:action="@{'/addUserToTask&'+${task.task_id}}" th:method="post" class="user">
+                            <form th:action="@{'/addUserToTask&'+${task.task_id}}" th:method="post" th:object="${addedUser}" class="user">
                                 <!--<div class="form-group row">-->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <!--lista rozwijana-->
-                                        <select class="form-control" th:object="${addedUser}">
+                                        <select class="form-control" th:field="*{email}">
                                             <option th:each="u : ${allUsers}"
-                                                    th:value="${u}"
+                                                    th:value="${u.email}"
                                                     th:text="${u.name+' '+u.lastname+' ('+u.email+')'}">
                                             </option>
                                         </select>
