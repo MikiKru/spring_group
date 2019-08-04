@@ -21,10 +21,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // adresy wymagające logowania
                 .antMatchers("/projects").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/project**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/task**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/addProject").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/projects&delete**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/addTask**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/task&delete**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/addUserToTask**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/deleteUserFromTask**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/updateTask**").hasAnyAuthority("ROLE_ADMIN")
                 // pozostałe nie wymagają logowania
                 .anyRequest().permitAll()
                 // wstrzyknięcie podstawowego formularza logowania

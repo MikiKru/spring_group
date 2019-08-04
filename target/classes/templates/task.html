@@ -469,16 +469,18 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div align="center" class="col-lg-12">
+                        <div th:if="${isAdmin}" align="center" class="col-lg-12">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <p>
                                 <h1 th:text="'Update task'" class="h3 mb-0 text-gray-800"></h1>
                                 </p>
                             </div>
-                            <form th:action="@{'/updateTask&'+${task.task_id}}" th:method="post" th:object="${task}" class="user">
+                            <form th:action="@{'/updateTask&'+${task.task_id}}" th:method="post" th:object="${task}"
+                                  class="user">
                                 <!--<div class="form-group row">-->
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input th:field="*{interval}" type="number" class="form-control form-control-user" id="interval">
+                                    <input th:field="*{interval}" type="number" class="form-control form-control-user"
+                                           id="interval">
                                     <select class="form-control" th:field="*{taskStatus}">
                                         <option th:each="s : ${statuses}"
                                                 th:value="${s}"
@@ -493,26 +495,27 @@
                             </form>
                         </div>
 
-                        <div align="center" class="col-lg-12">
+                        <div th:if="${isAdmin}" align="center" class="col-lg-12">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <p>
                                 <h1 th:text="'Add participant to project'" class="h3 mb-0 text-gray-800"></h1>
                                 </p>
                             </div>
-                            <form th:action="@{'/addUserToTask&'+${task.task_id}}" th:method="post" th:object="${addedUser}" class="user">
+                            <form th:action="@{'/addUserToTask&'+${task.task_id}}" th:method="post"
+                                  th:object="${addedUser}" class="user">
                                 <!--<div class="form-group row">-->
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <!--lista rozwijana-->
-                                        <select class="form-control" th:field="*{email}">
-                                            <option th:each="u : ${allUsers}"
-                                                    th:value="${u.email}"
-                                                    th:text="${u.name+' '+u.lastname+' ('+u.email+')'}">
-                                            </option>
-                                        </select>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <!--lista rozwijana-->
+                                    <select class="form-control" th:field="*{email}">
+                                        <option th:each="u : ${allUsers}"
+                                                th:value="${u.email}"
+                                                th:text="${u.name+' '+u.lastname+' ('+u.email+')'}">
+                                        </option>
+                                    </select>
 
-                                        <input th:type="submit" th:value="'add'"
-                                               class="btn btn-primary btn-user btn-block">
-                                    </div>
+                                    <input th:type="submit" th:value="'add'"
+                                           class="btn btn-primary btn-user btn-block">
+                                </div>
                                 <!--</div>-->
                             </form>
                         </div>
@@ -550,7 +553,7 @@
                                             <td th:text="${user.lastname}">Lastname</td>
                                             <td th:text="${user.email}">E-mail</td>
                                             <td>
-                                                <a th:href="@{'/deleteUserFromTask&'+${task.task_id}+'&'+${user.employee_id}}"
+                                                <a th:if="${isAdmin}" th:href="@{'/deleteUserFromTask&'+${task.task_id}+'&'+${user.employee_id}}"
                                                    class="btn btn-danger btn-circle">
                                                     <i class="fas fa-trash"></i>
                                                 </a>

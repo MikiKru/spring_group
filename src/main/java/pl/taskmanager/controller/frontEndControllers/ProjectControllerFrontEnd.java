@@ -115,7 +115,10 @@ public class ProjectControllerFrontEnd {
     }
     // metoda odwołująca się do widoku wybranego zadania
     @GetMapping("/task&{task_id}")
-    public String selectedTask(@PathVariable Long task_id, Model model){
+    public String selectedTask(
+            @PathVariable Long task_id,
+            Model model,
+            Authentication auth){
         // wydobycie z bazy danych szukanego taska
         Task task = projectService.getTaskById(task_id);
         model.addAttribute("task", task);
@@ -126,6 +129,7 @@ public class ProjectControllerFrontEnd {
         model.addAttribute("addedUser", new User());
         // przekazanie tablicy z statusami
         model.addAttribute("statuses", TaskStatus.values());
+        model.addAttribute("isAdmin", loginService.isAdmin(auth));
         return "task";
     }
 
@@ -149,4 +153,16 @@ public class ProjectControllerFrontEnd {
         projectService.deleteUserFromTaskUsersList(user,task);
         return "redirect:/task&"+task_id;
     }
+    @PostMapping("/updateTask&{task_id}")
+    public String updateTaskStatusAndInterval(
+            @PathVariable Long task_id,
+            @ModelAttribute Task task
+    ){
+        projectService.updateTaskStatusAndInterval(
+                task_id,
+                task.getInterval(),
+                task.getTaskStatus());
+        return "redirect:/task&"+task_id;
+    }
+
 }

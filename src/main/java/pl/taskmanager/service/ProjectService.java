@@ -7,6 +7,7 @@ import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
+import pl.taskmanager.model.enums.TaskStatus;
 import pl.taskmanager.repository.ProjectRepository;
 import pl.taskmanager.repository.TaskRepository;
 import java.util.List;
@@ -99,6 +100,12 @@ public class ProjectService {
         List<User> users = task.getUsers();
         users.remove(user);
         task.setUsers(users);
+        taskRepository.save(task);
+    }
+    public void updateTaskStatusAndInterval(Long task_id, Integer interval, TaskStatus taskStatus){
+        Task task = taskRepository.getOne(task_id);
+        task.setInterval(interval);
+        task.setTaskStatus(taskStatus);
         taskRepository.save(task);
     }
 }
