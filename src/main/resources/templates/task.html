@@ -479,10 +479,10 @@
                                 <!--<div class="form-group row">-->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <!--lista rozwijana-->
-                                        <select class="form-control" th:field="*{users}">
+                                        <select class="form-control" >
                                             <option th:each="u : ${allUsers}"
                                                     th:value="${u}"
-                                                    th:text="${u.name+' '+u.lastname+''+u.email}">
+                                                    th:text="${u.name+' '+u.lastname+' ('+u.email+')'}">
                                             </option>
                                         </select>
 
