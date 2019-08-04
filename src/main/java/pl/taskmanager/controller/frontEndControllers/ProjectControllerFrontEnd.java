@@ -16,6 +16,7 @@ import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.model.enums.TaskStatus;
+import pl.taskmanager.service.AutoMailingService;
 import pl.taskmanager.service.LoginService;
 import pl.taskmanager.service.ProjectService;
 import pl.taskmanager.service.UserService;
@@ -29,11 +30,14 @@ public class ProjectControllerFrontEnd {
     private ProjectService projectService;
     private LoginService loginService;
     private UserService userService;
+    private AutoMailingService autoMailingService;
+
     @Autowired
-    public ProjectControllerFrontEnd(ProjectService projectService, LoginService loginService, UserService userService) {
+    public ProjectControllerFrontEnd(ProjectService projectService, LoginService loginService, UserService userService, AutoMailingService autoMailingService) {
         this.projectService = projectService;
         this.loginService = loginService;
         this.userService = userService;
+        this.autoMailingService = autoMailingService;
     }
 
     @GetMapping("/projects")
@@ -142,6 +146,12 @@ public class ProjectControllerFrontEnd {
         System.out.println("Added user: " + user);
         // dodanie wybranego usera do listy tasków
         projectService.addUserToTask(userService.getUserByEmail(user.getEmail()),task_id);
+        autoMailingService.sendSimpleMessage(
+                user.getEmail(),
+                "Dodano do zadania",
+                "Zostałeś dodany do zadania: "+ task.getTitle() + " " +
+                        "w projekcie " + task.getProject().getAcronim()
+                );
         return "redirect:/task&"+task_id;
     }
     @GetMapping("/deleteUserFromTask&{task_id}&{user_id}")
@@ -151,6 +161,12 @@ public class ProjectControllerFrontEnd {
         User user = userService.getUserById(user_id);
         // usunięcie usera z listy userów w obiekcie task
         projectService.deleteUserFromTaskUsersList(user,task);
+        autoMailingService.sendSimpleMessage(
+                user.getEmail(),
+                "Usunięto z zadania",
+                "Zostałeś usunięty z zadania: "+ task.getTitle() + " " +
+                        "w projekcie " + task.getProject().getAcronim()
+        );
         return "redirect:/task&"+task_id;
     }
     @PostMapping("/updateTask&{task_id}")
