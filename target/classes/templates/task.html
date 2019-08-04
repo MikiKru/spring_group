@@ -461,6 +461,7 @@
                         <div class="card shadow mb-4">
                             <span th:text="'description: ' + ${task.message}" class="card-body"></span>
                             <span th:text="'task started: ' + ${task.dateStart}" class="card-body"></span>
+                            <span th:text="'task status: ' + ${task.taskStatus}" class="card-body"></span>
                             <span th:text="'deadline: ' + ${task.dateStart.plusDays(task.interval)}"
                                   class="card-body"></span>
                         </div>

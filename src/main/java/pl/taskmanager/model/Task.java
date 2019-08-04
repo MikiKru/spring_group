@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.taskmanager.model.enums.TaskStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -28,6 +29,9 @@ public class Task {
     private LocalDate dateStart = LocalDate.now();
     @Column(name = "task_interval")
     private Integer interval;
+
+    private TaskStatus taskStatus;
+
     @ManyToMany
     @JoinTable(
             name = "task_employee",
