@@ -51,5 +51,9 @@ public class UserService {
     public Role getRoleById(Long id){
         return roleRepository.getOne(id);
     }
+    // metoda pobierająca Usera po adresie email
+    public User getUserByEmail(String email){
+        return userRepository.findFirstByEmail(email);
+    }
 
 }

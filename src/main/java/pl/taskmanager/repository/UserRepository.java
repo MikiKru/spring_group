@@ -7,4 +7,5 @@ import pl.taskmanager.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findFirstByEmailAndPassword(String email, String password);
+    User findFirstByEmail(String email);
 }

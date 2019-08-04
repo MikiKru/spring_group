@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
+import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.repository.ProjectRepository;
@@ -83,5 +84,15 @@ public class ProjectService {
     }
     public Task getTaskById(Long task_id){
         return taskRepository.getOne(task_id);
+    }
+    public void addUserToTask(User user, Long task_id){
+        // wydobycie obiektu taska po id
+        Task task = taskRepository.getOne(task_id);
+        // dodanie obiektu User do listy users w Task
+        List<User> users = task.getUsers();
+        users.add(user);
+        task.setUsers(users);
+        // update taska
+        taskRepository.save(task);
     }
 }

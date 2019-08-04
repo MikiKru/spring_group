@@ -131,7 +131,7 @@ public class ProjectControllerFrontEnd {
     ){
         System.out.println("Added user: " + user);
         // dodanie wybranego usera do listy tasków
-//        userService.
+        projectService.addUserToTask(userService.getUserByEmail(user.getEmail()),task_id);
         return "redirect:/task&"+task_id;
     }
 }
