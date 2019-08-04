@@ -30,7 +30,7 @@ public class Task {
     @Column(name = "task_interval")
     private Integer interval;
 
-    private TaskStatus taskStatus;
+    private TaskStatus taskStatus = TaskStatus.NEW;
 
     @ManyToMany
     @JoinTable(
