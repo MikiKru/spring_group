@@ -55,5 +55,8 @@ public class UserService {
     public User getUserByEmail(String email){
         return userRepository.findFirstByEmail(email);
     }
+    public User getUserById(Long user_id){
+        return userRepository.getOne(user_id);
+    }
 
 }

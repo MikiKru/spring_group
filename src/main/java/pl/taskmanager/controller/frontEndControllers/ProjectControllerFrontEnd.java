@@ -137,4 +137,13 @@ public class ProjectControllerFrontEnd {
         projectService.addUserToTask(userService.getUserByEmail(user.getEmail()),task_id);
         return "redirect:/task&"+task_id;
     }
+    @GetMapping("/deleteUserFromTask&{task_id}&{user_id}")
+    public String deleteUserFromTask(
+            @PathVariable Long task_id, @PathVariable Long user_id){
+        Task task = projectService.getTaskById(task_id);
+        User user = userService.getUserById(user_id);
+        // usunięcie usera z listy userów w obiekcie task
+        projectService.deleteUserFromTaskUsersList(user,task);
+        return "redirect:/task&"+task_id;
+    }
 }

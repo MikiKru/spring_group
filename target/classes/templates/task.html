@@ -526,7 +526,7 @@
                                             <td th:text="${user.lastname}">Lastname</td>
                                             <td th:text="${user.email}">E-mail</td>
                                             <td>
-                                                <a th:href="@{'/task&delete&user&'+${task.task_id}+'${user.user_id}'}"
+                                                <a th:href="@{'/deleteUserFromTask&'+${task.task_id}+'&'+${user.employee_id}}"
                                                    class="btn btn-danger btn-circle">
                                                     <i class="fas fa-trash"></i>
                                                 </a>

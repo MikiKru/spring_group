@@ -95,4 +95,10 @@ public class ProjectService {
         // update taska
         taskRepository.save(task);
     }
+    public void deleteUserFromTaskUsersList(User user, Task task){
+        List<User> users = task.getUsers();
+        users.remove(user);
+        task.setUsers(users);
+        taskRepository.save(task);
+    }
 }
