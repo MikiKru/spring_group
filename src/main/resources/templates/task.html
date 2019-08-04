@@ -344,7 +344,7 @@
                                 Activity Log
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logout}" >
+                            <a class="dropdown-item" th:href="@{/logout}">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -372,7 +372,7 @@
                                             tasks
                                         </div>
                                         <!--<div th:text="${project.tasks.size()}"-->
-                                             <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
+                                        <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -392,7 +392,7 @@
                                             tasks
                                         </div>
                                         <!--<div th:text="${numberOfTasks}"-->
-                                             <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
+                                        <!--class="h5 mb-0 font-weight-bold text-gray-800"></div>-->
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -461,7 +461,8 @@
                         <div class="card shadow mb-4">
                             <span th:text="'description: ' + ${task.message}" class="card-body"></span>
                             <span th:text="'task started: ' + ${task.dateStart}" class="card-body"></span>
-                            <span th:text="'deadline: ' + ${task.dateStart.plusDays(task.interval)}" class="card-body"></span>
+                            <span th:text="'deadline: ' + ${task.dateStart.plusDays(task.interval)}"
+                                  class="card-body"></span>
                         </div>
                     </div>
                 </div>
@@ -472,21 +473,19 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                    <!--tabelka-->
+                        <!--tabelka-->
                         <div class="card shadow mb-4">
                             <!--<div class="card-header py-3">-->
-                                <!--<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
+                            <!--<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
                             <!--</div>-->
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Lastname</th>
-                                            <th>E-mail</th>
-                                            <th>Delete</th>
-                                        </tr>
+                                        <th>Name</th>
+                                        <th>Lastname</th>
+                                        <th>E-mail</th>
+                                        <th>Delete</th>
                                         </thead>
                                         <tfoot>
                                         <tr>
@@ -497,11 +496,16 @@
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr>
-                                            <td>user name</td>
-                                            <td>user lastname</td>
-                                            <td>user email</td>
-                                            <td>user status</td>
+                                        <tr th:each="user : ${task.users}">
+                                            <td th:text="${user.name}">Name</td>
+                                            <td th:text="${user.lastname}">Lastname</td>
+                                            <td th:text="${user.email}">E-mail</td>
+                                            <td>
+                                                <a th:href="@{'/task&delete&user&'+${task.task_id}+'${user.user_id}'}"
+                                                   class="btn btn-danger btn-circle">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -515,28 +519,28 @@
             </div>
             <!-- /.container-fluid -->
             <!--<div align="center" class="col-lg-12" >-->
-                <!--<h1>Add new task</h1>-->
-                <!--<form th:action="@{'/addTask&' + ${project.project_id}}" th:method="post" th:object="${taskDto}" class="user">-->
-                    <!--<div class="form-group row">-->
-                        <!--<div class="col-sm-6 mb-3 mb-sm-0">-->
-                            <!--<input th:field="*{title}" type="text" class="form-control form-control-user" id="title"-->
-                                   <!--placeholder="Title">-->
-                            <!--<p th:errors="*{title}">wrong</p>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input th:field="*{interval}" type="number" class="form-control form-control-user" id="interval">-->
-                            <!--&lt;!&ndash;placeholder="Days interval"&ndash;&gt;-->
-                            <!--<span th:errors="*{interval}"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<input th:field="*{message}" type="text" class="form-control form-control-user" id="message"-->
-                               <!--placeholder="Message">-->
-                        <!--<span th:errors="*{message}"></span>-->
-                    <!--</div>-->
-                    <!--<input th:type="submit" th:value="'Create new task'" class="btn btn-primary btn-user btn-block">-->
+            <!--<h1>Add new task</h1>-->
+            <!--<form th:action="@{'/addTask&' + ${project.project_id}}" th:method="post" th:object="${taskDto}" class="user">-->
+            <!--<div class="form-group row">-->
+            <!--<div class="col-sm-6 mb-3 mb-sm-0">-->
+            <!--<input th:field="*{title}" type="text" class="form-control form-control-user" id="title"-->
+            <!--placeholder="Title">-->
+            <!--<p th:errors="*{title}">wrong</p>-->
+            <!--</div>-->
+            <!--<div class="col-sm-6">-->
+            <!--<input th:field="*{interval}" type="number" class="form-control form-control-user" id="interval">-->
+            <!--&lt;!&ndash;placeholder="Days interval"&ndash;&gt;-->
+            <!--<span th:errors="*{interval}"></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<input th:field="*{message}" type="text" class="form-control form-control-user" id="message"-->
+            <!--placeholder="Message">-->
+            <!--<span th:errors="*{message}"></span>-->
+            <!--</div>-->
+            <!--<input th:type="submit" th:value="'Create new task'" class="btn btn-primary btn-user btn-block">-->
 
-                <!--</form>-->
+            <!--</form>-->
             <!--</div>-->
         </div>
         <!-- End of Main Content -->
