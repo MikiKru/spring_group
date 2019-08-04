@@ -149,8 +149,7 @@ public class ProjectControllerFrontEnd {
         autoMailingService.sendSimpleMessage(
                 user.getEmail(),
                 "Dodano do zadania",
-                "Zostałeś dodany do zadania: "+ task.getTitle() + " " +
-                        "w projekcie " + task.getProject().getAcronim()
+                "Zostałeś dodany do zadania: "+ task.getTitle()
                 );
         return "redirect:/task&"+task_id;
     }
