@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.UserDto;
 import pl.taskmanager.service.UserService;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 // nasłuchiwanie na żądania protkołu http
@@ -38,7 +40,7 @@ public class UserController {
             @PathVariable String lastname,
             @PathVariable String email,
             @PathVariable String password
-    ){
+    ) throws NoSuchAlgorithmException {
         return userService.addUser(new UserDto(name,lastname,email,password));
     }
     @GetMapping("/login_user/{email}&{password}")

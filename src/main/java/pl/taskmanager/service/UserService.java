@@ -8,16 +8,22 @@ import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.UserDto;
 import pl.taskmanager.repository.RoleRepository;
 import pl.taskmanager.repository.UserRepository;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
 public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private AutoMailingService autoMailingService;
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, AutoMailingService autoMailingService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.autoMailingService = autoMailingService;
     }
 
     // wypisz wszystkich użytkowników
@@ -29,7 +35,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     // rejestracja użytkownika
-    public User addUser(UserDto user){
+    public User addUser(UserDto user) throws NoSuchAlgorithmException {
         // utwórz obiekt User
         User registered_user = new User(
                 user.getName(),
@@ -37,8 +43,39 @@ public class UserService {
                 user.getEmail(),
                 passwordEncoder.encode(user.getPassword())); // zwraca hash hasła
         registered_user.addRole(roleRepository.getOne(1L));
+        // /registrationConfirm/email=x
+        // /registrationConfirm/dsadef##!@#!@$!
+        registered_user.setConfirmation(shaEncoder("email="+user.getEmail()));
+        // link z potwierdzeniem
+//        autoMailingService.sendSimpleMessage(
+//                user.getEmail(),
+//                "Confirm your registration",
+//                "localhost:8080/registrationConfirmed/"+passwordEncoder.encode("email="+user.getEmail())
+//        );
         return userRepository.save(registered_user);
     }
+    public String shaEncoder(String text) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedhash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+        String hash = "";
+        for (byte b : encodedhash) {
+            hash += b;
+        }
+        return hash.replaceAll("-","");
+    }
+
+    public void confirmedRegistration(String registration_hash){
+        User user = userRepository.findFirstByConfirmation(registration_hash);
+        if(user != null){
+            System.out.println("POTWIERDZONE");
+            user.setIsActivated(true);
+            userRepository.save(user);
+        }else{
+            System.out.println("NIC");
+        }
+
+    }
+
     // logowanie użytkownika
     public String loginUser(String email, String password){
         User user = userRepository.findFirstByEmailAndPassword(email,password);
