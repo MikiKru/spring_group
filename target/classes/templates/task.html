@@ -603,6 +603,9 @@
                                 <!--<div class="form-group row">-->
                                 <div class="col-lg-6">
                                     <textarea th:field="*{content}"></textarea>
+                                    <div>
+                                        <span th:errors="*{content}"></span>
+                                    </div>
                                     <input th:type="submit" th:value="'add comment'"
                                            class="btn btn-primary btn-user btn-block">
                                 </div>

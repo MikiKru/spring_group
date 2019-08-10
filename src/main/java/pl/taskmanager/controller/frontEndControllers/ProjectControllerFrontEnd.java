@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.taskmanager.model.Comment;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
@@ -24,7 +25,11 @@ import pl.taskmanager.service.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class ProjectControllerFrontEnd {
 
@@ -125,7 +130,10 @@ public class ProjectControllerFrontEnd {
             Model model,
             Authentication auth){
         // Lista komentarzy wybranego taska
-        model.addAttribute("comments", projectService.getAllCommentsByTaskId(task_id));
+        List<Comment> comments = projectService.getAllCommentsByTaskId(task_id);
+        // sortowanie komentarzy po dacie dodania od najnowszych do najstarszych
+        Collections.sort(comments, Comparator.comparing(Comment::getDate_added).reversed());
+        model.addAttribute("comments", comments);
         // Obiekt dto do formularza dodawania komentarzy
         model.addAttribute("commentDto", new CommentDto());
         // wydobycie z bazy danych szukanego taska
@@ -188,9 +196,28 @@ public class ProjectControllerFrontEnd {
     public String createComment(
             @PathVariable Long task_id,
             @ModelAttribute @Valid CommentDto commentDto, BindingResult bindingResult,
-            Authentication auth
+            Authentication auth,
+            Model model
             ){
         if(bindingResult.hasErrors()){
+            // Lista komentarzy wybranego taska
+            List<Comment> comments = projectService.getAllCommentsByTaskId(task_id);
+            // sortowanie komentarzy po dacie dodania od najnowszych do najstarszych
+            Collections.sort(comments, Comparator.comparing(Comment::getDate_added).reversed());
+            model.addAttribute("comments", comments);
+            // Obiekt dto do formularza dodawania komentarzy
+            // model.addAttribute("commentDto", new CommentDto());
+            // wydobycie z bazy danych szukanego taska
+            Task task = projectService.getTaskById(task_id);
+            model.addAttribute("task", task);
+            // przekazanie do wydoku listy użytkowników do przypisanie do tasków
+            List<User> allUsers = userService.getAllUsers();
+            allUsers.removeAll(task.getUsers());
+            model.addAttribute("allUsers", allUsers);
+            model.addAttribute("addedUser", new User());
+            // przekazanie tablicy z statusami
+            model.addAttribute("statuses", TaskStatus.values());
+            model.addAttribute("isAdmin", loginService.isAdmin(auth));
             return "task";
         }
         // zapisujemy komantarz do DB
