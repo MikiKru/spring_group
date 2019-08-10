@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
+import pl.taskmanager.model.dto.CommentDto;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.model.enums.TaskStatus;
@@ -125,6 +126,8 @@ public class ProjectControllerFrontEnd {
             Authentication auth){
         // Lista komentarzy wybranego taska
         model.addAttribute("comments", projectService.getAllCommentsByTaskId(task_id));
+        // Obiekt dto do formularza dodawania komentarzy
+        model.addAttribute("commentDto", new CommentDto());
         // wydobycie z bazy danych szukanego taska
         Task task = projectService.getTaskById(task_id);
         model.addAttribute("task", task);
