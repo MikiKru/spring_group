@@ -47,6 +47,12 @@ public class Task {
     // pole o nazwie jak w mappedBy
     private Project project;
 
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            mappedBy = "task")
+    private List<Comment> comments = new ArrayList<>();
+
     public Task(@NotBlank String title, @NotBlank String message, @NotBlank LocalDate dateStart, @NotBlank Integer interval, Project project) {
         this.title = title;
         this.message = message;

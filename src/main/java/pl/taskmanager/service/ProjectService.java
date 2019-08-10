@@ -2,12 +2,14 @@ package pl.taskmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.taskmanager.model.Comment;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.model.enums.TaskStatus;
+import pl.taskmanager.repository.CommentRepository;
 import pl.taskmanager.repository.ProjectRepository;
 import pl.taskmanager.repository.TaskRepository;
 import java.util.List;
@@ -18,11 +20,14 @@ import java.util.Optional;
 public class ProjectService {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
+    private CommentRepository commentRepository;
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, TaskRepository taskRepository) {
+    public ProjectService(ProjectRepository projectRepository, TaskRepository taskRepository, CommentRepository commentRepository) {
         this.projectRepository = projectRepository;
         this.taskRepository = taskRepository;
+        this.commentRepository = commentRepository;
     }
+
     // utwórz projekt
     public Project createProject(ProjectDto projectDto){
         return projectRepository.save(
@@ -107,5 +112,8 @@ public class ProjectService {
         task.setInterval(interval);
         task.setTaskStatus(taskStatus);
         taskRepository.save(task);
+    }
+    public List<Comment> getAllCommentsByTaskId(Long task_id){
+        return commentRepository.findAllByTask(taskRepository.getOne(task_id));
     }
 }

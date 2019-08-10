@@ -123,6 +123,8 @@ public class ProjectControllerFrontEnd {
             @PathVariable Long task_id,
             Model model,
             Authentication auth){
+        // Lista komentarzy wybranego taska
+        model.addAttribute("comments", projectService.getAllCommentsByTaskId(task_id));
         // wydobycie z bazy danych szukanego taska
         Task task = projectService.getTaskById(task_id);
         model.addAttribute("task", task);

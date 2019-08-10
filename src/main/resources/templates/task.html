@@ -565,7 +565,17 @@
                             </div>
                         </div>
 
-
+                        <!--tuuu-->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <p>
+                            <h1 th:text="'Update task'" class="h3 mb-0 text-gray-800"></h1>
+                            </p>
+                        </div>
+                        <div th:each="comment : ${comments}">
+                            <p th:text="${comment.content}">content</p>
+                            <p th:text="${comment.date_added + ''}">time</p>
+                            <!--<p th:text="${comment.user.getName() +' '+comment.user.getLastname()}">owner</p>-->
+                        </div>
                     </div>
                 </div>
             </div>
