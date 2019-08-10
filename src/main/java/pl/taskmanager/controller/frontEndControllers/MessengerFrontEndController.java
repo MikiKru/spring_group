@@ -9,10 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.CommentDto;
 import pl.taskmanager.model.dto.ContactDto;
 import pl.taskmanager.repository.UserRepository;
-
+import java.util.List;
 import javax.validation.Valid;
 
 @Controller
@@ -26,10 +27,15 @@ public class MessengerFrontEndController {
 
     @GetMapping("/sendMessage")
     public String sendMessage(
-            Model model
+            Model model, Authentication auth
     ){
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
         // lista wszystkich użytkowników
-        model.addAttribute("users", userRepository.findAll());
+        List<User> users = userRepository.findAll();
+        User me = userRepository.findFirstByEmail(userDetails.getUsername());
+        users.remove(me);
+        // lista wszystkich użytkowników
+        model.addAttribute("users", users);
         // przekazanie do widoku modelu contactDto
         model.addAttribute("contactDto", new ContactDto());
         return "contact";
@@ -42,13 +48,17 @@ public class MessengerFrontEndController {
             Authentication auth,
             Model model
     ){
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
         if(bindingResult.hasErrors()){
             // lista wszystkich użytkowników
-            model.addAttribute("users", userRepository.findAll());
+            List<User> users = userRepository.findAll();
+            User me = userRepository.findFirstByEmail(userDetails.getUsername());
+            users.remove(me);
+            model.addAttribute("users", users);
             return "contact";
         }
         // auto mailing
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+
         System.out.println("Content: " + contactDto.getContent());
         System.out.println("User to: " + contactDto.getEmailTo());
         System.out.println("User from: " + userDetails.getUsername());
