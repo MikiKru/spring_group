@@ -13,6 +13,8 @@ import pl.taskmanager.model.User;
 import pl.taskmanager.model.dto.CommentDto;
 import pl.taskmanager.model.dto.ContactDto;
 import pl.taskmanager.repository.UserRepository;
+import pl.taskmanager.service.AutoMailingService;
+
 import java.util.List;
 import javax.validation.Valid;
 
@@ -20,9 +22,11 @@ import javax.validation.Valid;
 public class MessengerFrontEndController {
 
     private UserRepository userRepository;
+    private AutoMailingService autoMailingService;
     @Autowired
-    public MessengerFrontEndController(UserRepository userRepository) {
+    public MessengerFrontEndController(UserRepository userRepository, AutoMailingService autoMailingService) {
         this.userRepository = userRepository;
+        this.autoMailingService = autoMailingService;
     }
 
     @GetMapping("/sendMessage")
@@ -58,10 +62,10 @@ public class MessengerFrontEndController {
             return "contact";
         }
         // auto mailing
-
-        System.out.println("Content: " + contactDto.getContent());
-        System.out.println("User to: " + contactDto.getEmailTo());
-        System.out.println("User from: " + userDetails.getUsername());
+        autoMailingService.sendSimpleMessage(
+                contactDto.getEmailTo(),
+                "Message from " + userDetails.getUsername(),
+                contactDto.getContent() );
         return "redirect:/sendMessage";
     }
 
