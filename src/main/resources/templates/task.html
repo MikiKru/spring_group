@@ -598,7 +598,7 @@
                                 <h1 th:text="'Add comment to the task'" class="h3 mb-0 text-gray-800"></h1>
                                 </p>
                             </div>
-                            <form th:action="@{'/addCommentToTask'+${task.task_id}}" th:method="post"
+                            <form th:action="@{'/addCommentToTask&'+${task.task_id}}" th:method="post"
                                   th:object="${commentDto}" class="user">
                                 <!--<div class="form-group row">-->
                                 <div class="col-lg-6">

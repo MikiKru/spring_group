@@ -6,6 +6,7 @@ import pl.taskmanager.model.Comment;
 import pl.taskmanager.model.Project;
 import pl.taskmanager.model.Task;
 import pl.taskmanager.model.User;
+import pl.taskmanager.model.dto.CommentDto;
 import pl.taskmanager.model.dto.ProjectDto;
 import pl.taskmanager.model.dto.TaskDto;
 import pl.taskmanager.model.enums.TaskStatus;
@@ -115,5 +116,12 @@ public class ProjectService {
     }
     public List<Comment> getAllCommentsByTaskId(Long task_id){
         return commentRepository.findAllByTask(taskRepository.getOne(task_id));
+    }
+    public void createComment(CommentDto commentDto, Task task, String owner){
+        Comment comment = new Comment();
+        comment.setContent(commentDto.getContent());
+        comment.setTask(task);
+        comment.setOwner(owner);
+        commentRepository.save(comment);
     }
 }

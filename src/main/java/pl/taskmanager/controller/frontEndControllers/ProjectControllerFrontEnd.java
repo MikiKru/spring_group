@@ -184,5 +184,22 @@ public class ProjectControllerFrontEnd {
                 task.getTaskStatus());
         return "redirect:/task&"+task_id;
     }
+    @PostMapping("/addCommentToTask&{task_id}")
+    public String createComment(
+            @PathVariable Long task_id,
+            @ModelAttribute @Valid CommentDto commentDto, BindingResult bindingResult,
+            Authentication auth
+            ){
+        if(bindingResult.hasErrors()){
+            return "task";
+        }
+        // zapisujemy komantarz do DB
+        User user = userService.getUserByEmail(loginService.getLoginFromCredentials(auth));
+        projectService.createComment(
+                commentDto,
+                projectService.getTaskById(task_id),
+                user.getName() + " " + user.getLastname());
+        return "redirect:/task&"+task_id;
+    }
 
 }
