@@ -2,6 +2,7 @@ package pl.taskmanager.controller.frontEndControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,14 +39,19 @@ public class MessengerFrontEndController {
     public String sendMessage(
             @ModelAttribute @Valid ContactDto contactDto,
             BindingResult bindingResult,
-            Authentication auth
+            Authentication auth,
+            Model model
     ){
-//        if(bindingResult.hasErrors()){
-//            return "contact";
-//        }
+        if(bindingResult.hasErrors()){
+            // lista wszystkich użytkowników
+            model.addAttribute("users", userRepository.findAll());
+            return "contact";
+        }
         // auto mailing
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
         System.out.println("Content: " + contactDto.getContent());
-        System.out.println("User: " + contactDto.getEmailTo());
+        System.out.println("User to: " + contactDto.getEmailTo());
+        System.out.println("User from: " + userDetails.getUsername());
         return "redirect:/sendMessage";
     }
 

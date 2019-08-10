@@ -22,6 +22,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/projects").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/project**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/task**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/sendMessage**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/addProject").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/projects&delete**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/addTask**").hasAnyAuthority("ROLE_ADMIN")
