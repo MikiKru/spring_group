@@ -48,6 +48,8 @@ public class ProjectControllerFrontEnd {
 
     @GetMapping("/projects")
     public String projects(Model model, Authentication auth){
+        model.addAttribute("no_comments", projectService.countAllComments());
+        model.addAttribute("percent",projectService.percentOfClosedTasks());
         List<Project> projectsList = projectService.getAllProjects();
         Long taskNo = projectService.countTasks();
         model.addAttribute("projectsList",projectsList);
@@ -97,6 +99,8 @@ public class ProjectControllerFrontEnd {
     }
     @GetMapping("/project&{project_id}")
     public String showProjectDetails(@PathVariable Long project_id, Model model) {
+        model.addAttribute("no_comments",projectService.countCommentsInProject(project_id));
+        model.addAttribute("percent",projectService.percentOfClosedTasksInProject(project_id));
         Project project = projectService.getProjectById(project_id);
         model.addAttribute("project",project);
         model.addAttribute("taskDto",new TaskDto());
@@ -129,6 +133,7 @@ public class ProjectControllerFrontEnd {
             @PathVariable Long task_id,
             Model model,
             Authentication auth){
+        model.addAttribute("no_comments", projectService.countCommentsInTask(task_id));
         // Lista komentarzy wybranego taska
         List<Comment> comments = projectService.getAllCommentsByTaskId(task_id);
         // sortowanie komentarzy po dacie dodania od najnowszych do najstarszych
