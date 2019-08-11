@@ -40,13 +40,14 @@ public class Task {
     )
     @JsonIgnore
     List<User> users = new ArrayList<>();
+    @JsonIgnore
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "project_id")
     // pole o nazwie jak w mappedBy
     private Project project;
-
+    @JsonIgnore
     @OneToMany(
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,

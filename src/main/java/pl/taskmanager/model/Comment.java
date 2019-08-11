@@ -1,5 +1,6 @@
 package pl.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Comment {
     private String content;
     private String owner;
     private LocalDateTime date_added = LocalDateTime.now();
-
+    @JsonIgnore
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,CascadeType.PERSIST})

@@ -101,9 +101,11 @@ public class ProjectControllerFrontEnd {
     public String showProjectDetails(@PathVariable Long project_id, Model model) {
         model.addAttribute("no_comments",projectService.countCommentsInProject(project_id));
         model.addAttribute("percent",projectService.percentOfClosedTasksInProject(project_id));
+        model.addAttribute("tasks",projectService.getTasksInProject(project_id));
         Project project = projectService.getProjectById(project_id);
         model.addAttribute("project",project);
         model.addAttribute("taskDto",new TaskDto());
+//        System.out.println("List of tasks:" + project.getTasks());
         return "project";
     }
     @PostMapping("/addTask&{project_id}")

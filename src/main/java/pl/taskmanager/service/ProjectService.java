@@ -178,7 +178,7 @@ public class ProjectService {
         return (int) commentRepository.count();
     }
     public Integer countCommentsInProject(Long project_id){
-        List<Task> tasks = projectRepository.getOne(project_id).getTasks();
+        List<Task> tasks = taskRepository.findAllByProject(projectRepository.getOne(project_id));
         Integer no_comments = 0;
         for (Task task : tasks) {
             no_comments += countCommentsInTask(task.getTask_id());
@@ -188,6 +188,9 @@ public class ProjectService {
     public Integer countCommentsInTask(Long task_id){
         return commentRepository
                 .findAllByTask(taskRepository.getOne(task_id)).size();
+    }
+    public List<Task> getTasksInProject(Long project_id){
+        return taskRepository.findAllByProject(projectRepository.getOne(project_id));
     }
 
 }
