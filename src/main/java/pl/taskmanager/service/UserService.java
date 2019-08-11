@@ -47,11 +47,11 @@ public class UserService {
         // /registrationConfirm/dsadef##!@#!@$!
         registered_user.setConfirmation(shaEncoder("email="+user.getEmail()));
         // link z potwierdzeniem
-//        autoMailingService.sendSimpleMessage(
-//                user.getEmail(),
-//                "Confirm your registration",
-//                "localhost:8080/registrationConfirmed/"+passwordEncoder.encode("email="+user.getEmail())
-//        );
+        autoMailingService.sendSimpleMessage(
+                user.getEmail(),
+                "Confirm your registration",
+                "localhost:8080/registrationConfirmed/"+passwordEncoder.encode("email="+user.getEmail())
+        );
         return userRepository.save(registered_user);
     }
     public String shaEncoder(String text) throws NoSuchAlgorithmException {
