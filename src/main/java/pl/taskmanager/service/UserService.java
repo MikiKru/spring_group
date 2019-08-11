@@ -50,7 +50,7 @@ public class UserService {
         autoMailingService.sendSimpleMessage(
                 user.getEmail(),
                 "TASK MANAGER: confirm your registration",
-                "https://taskmanagerpub.herokuapp.com/registrationConfirmed/"+passwordEncoder.encode("email="+user.getEmail())
+                "https://taskmanagerpub.herokuapp.com/registrationConfirmed/"+shaEncoder("email="+user.getEmail())
         );
         return userRepository.save(registered_user);
     }
