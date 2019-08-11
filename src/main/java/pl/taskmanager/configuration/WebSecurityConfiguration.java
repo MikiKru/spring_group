@@ -46,6 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/login-process")
                         // przekierowanie po zalogowaniu
                         .defaultSuccessUrl("/projects")
+                        .failureUrl("/loginError")
                 .and()
                     .logout()
                         .logoutUrl("/logout")

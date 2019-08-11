@@ -14,4 +14,8 @@ public class ErrorControllerFrontEnd implements ErrorController {
     public String errorPage(){
         return "404";
     }
+    @GetMapping("loginError")
+    public String loginError(){
+        return "loginError";
+    }
 }
